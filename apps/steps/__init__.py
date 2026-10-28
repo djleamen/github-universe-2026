@@ -27,7 +27,7 @@ CTRL10_C = 0x19
 STEP_COUNTER_L = 0x4B
 FUNC_EN = 0x04
 PEDO_EN = 0x10
-HARDWARE_POLL_MS = 250      # how often the chip's count is read while open
+HARDWARE_POLL_MS = 250 # how often the chip's count is read while open
 
 GRAVITY = 16384.0
 BASELINE_MS = 900
@@ -106,7 +106,7 @@ class HardwareCounter:
         self.how = ""
         try:
             self.attach()
-        except Exception as reason:  # noqa: BLE001 - any failure means fall back
+        except Exception as reason:  # noqa: BLE001
             print("steps: hardware counter unavailable:", reason)
             self.reader = None
 
@@ -202,8 +202,7 @@ class Pedometer:
         elif self.armed and signal < STEP_DOWN:
             self.armed = False
         if self.hardware.available:
-            # the chip is the source of truth; the detector above only drives
-            # the trace, the cadence figure and the glow
+            # the chip is the source of truth; detector above only drives the trace, the cadence figure and the glow
             if now >= self.next_hardware_read:
                 self.next_hardware_read = now + HARDWARE_POLL_MS
                 self.count(self.bank())
@@ -301,20 +300,14 @@ def draw_ring():
     if done > 0:
         screen.pen = GREEN_BRIGHT if done >= 1 else GREEN
         screen.shape(shape.arc(RING_CX, RING_CY, RING_R - RING_W, RING_R, -90, -90 + 360 * done))
-    # futile's digits have about 7px of blank above 13px of ink, and sins sits
-    # 2px down in its line, so the pair is placed by ink to sit on the centre
     block_h = 13 + 2 + 8
     ink_top = RING_CY - block_h / 2
     centred("%d%%" % round(done * 100), ink_top - 7, TITLE, TEXT, RING_CX)
     centred("of " + thousands(state["goal"]), ink_top + 13 + 2 - 2, SMALL, DIM, RING_CX)
 
 
-# the ignore font draws its digits with about 7px of blank space above them
-# and 17px of ink, so the label is hung off the ink, not the line box
 HUGE_TOP_BEARING = 7
 HUGE_INK = 17
-# the two rows of figures under the label: sins label (12px line) then a
-# bacteria value (20px line) with a little slack, ending above the trace
 STATS_TOP = 122
 STAT_PITCH = 30
 
