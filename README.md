@@ -4,6 +4,8 @@ Mega directory of my Universe activities Oct 27-29 in SF!
 The apps/ directory contains my custom badge apps:
 Feel free to load these onto your badge, fork, or open issues / request changes!
 
+<img width="2000" height="1520" alt="all_apps_contact_sheet" src="https://github.com/user-attachments/assets/18e2b78b-0683-4495-bb7c-0f2837009cbd" />
+
 | App | What it does | Badge components
 |---|---|---|
 | **Steps** | Pedometer with daily goal ring, distance, cadence, best/all-time, live sensor trace, hold-to-reset | IMU hardware step counter + accelerometer, `State` persistence, RTC/`time.localtime` for daily rollover, case lights (pulse per step), Up/Down/Select |
