@@ -68,14 +68,15 @@ LEVELS = (
 TITLE = font.futile
 SMALL = font.sins
 HUGE = font.ignore
+# Why Mona Sans?
 # Mona Sans is a vector font, so it takes a point size; the pixel fonts above
 # take none. Bacteria (the obvious pixel body font) is a wide monospace that
 # runs to 12px a character, far too wide for three columns of figures.
 BODY = missing_details.mona_sans()
 BODY_SIZE = 14
 NOTE_SIZE = 12
-LABEL_H = 12                # the height measure_text reports for sins
-ROW_GAP = 10                # between a label line and the value under it
+LABEL_H = 12
+ROW_GAP = 10
 
 HINT_STYLE = hints.Style(TEXT, FAINT, BACKGROUND)
 VIEW_LIT = (BUTTON_LEFT, BUTTON_RIGHT)
@@ -416,8 +417,6 @@ def draw_year():
         draw_cells(YEAR_LEFT, YEAR_TOP, YEAR_PITCH, YEAR_CELL, 0, WEEKS)
     else:
         draw_placeholder(YEAR_LEFT, YEAR_TOP, YEAR_PITCH, YEAR_CELL, WEEKS)
-    # three evenly spaced columns of figures under the graph, each with its
-    # label above, then the legend on a line of its own
     columns = (16, 118, 220)
     base = YEAR_TOP + DAYS * YEAR_PITCH + 14
     stat(columns[0], base, "contributions", thousands(graph.total) if graph.loaded else "-")
@@ -487,8 +486,6 @@ def draw_numbers():
     if not graph.loaded:
         body_centred("nothing to count yet", 110, DIM)
         return
-    # ignore's digits carry about 7px of blank above 17px of ink; at 1.5x
-    # the ink runs 10px to 36px below the line, so the caption hangs off that
     centred(thousands(graph.total), 36, HUGE, GREEN_BRIGHT, scale=1.5)
     body_centred("contributions in the past year", 36 + 36 + 6, DIM)
     top = 100
