@@ -260,8 +260,8 @@ class Downloader:
             self.request = None
             self.wanted = False
             try:
+                graph.load(TEMP_FILE)
                 os.rename(TEMP_FILE, DATA_FILE)
-                graph.load(DATA_FILE)
                 state["user"] = self.user
                 State.save(STATE_KEY, state)
                 self.fetched = True
