@@ -246,6 +246,7 @@ class Downloader:
         self.wanted = True
 
     def update(self):
+        global graph
         if self.request is None:
             if not self.wanted or badge.ticks < self.retry_at:
                 return
@@ -260,13 +261,15 @@ class Downloader:
             self.request = None
             self.wanted = False
             try:
+                fresh = Graph()
+                fresh.load(TEMP_FILE)
                 os.rename(TEMP_FILE, DATA_FILE)
-                graph.load(DATA_FILE)
+                graph = fresh
                 state["user"] = self.user
                 State.save(STATE_KEY, state)
                 self.fetched = True
                 reveal.start()
-            except (OSError, ValueError, KeyError, TypeError) as reason:
+            except (OSError, ValueError, KeyError, TypeError, IndexError) as reason:
                 self.fail("%s: %s" % (type(reason).__name__, reason))
         elif self.request.error:
             error = self.request.error
